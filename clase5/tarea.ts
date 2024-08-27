@@ -1,21 +1,26 @@
 class Accion {
+    private static contadorId = 0;
+    id: number;
     comentarios: string;
     fecha: Date;
 
     constructor(comentarios: string) {
+        this.id = Accion.contadorId++;
         this.comentarios = comentarios;
         this.fecha = new Date();
     }
 
     mostrarAccion(): string {
-        return `${this.comentarios} realizada el ${this.fecha}`;
+        return `ID: ${this.id} - comentario: ${this.comentarios} realizada el ${this.fecha}`;
     }
 }
 
 class Historial {
+    id: number;
     acciones: Accion[];
 
-    constructor() {
+    constructor(id: number) {
+        this.id = id;
         this.acciones = [];
     }
 
@@ -34,7 +39,7 @@ class Historial {
     }
 
     eliminarAccion(indice: number): void {
-        if (indice > 0 && indice <= this.acciones.length) {
+        if (indice >= 1 && indice <= this.acciones.length) {
             this.acciones.splice(indice - 1, 1);
             console.log(`Accion ${indice} eliminada`);
         } else {
@@ -42,35 +47,35 @@ class Historial {
         }
     }
 
-     limpiarHistorial():void {
+    limpiarHistorial(): void {
         this.acciones = [];
         console.log('Historial limpio');
-     }
     }
+}
 
 
 /*crear instancia*/
-    const historial = new Historial();
+const historial = new Historial(1);
 
 
 /*crear acciones*/
-    const accion1 = new Accion('el producto es de buena calidad');
-    const accion2 = new Accion('desastroso, el producto se rompio');
-    const accion3 = new Accion('el producto fue bueno en precio/calidad');
+const accion1 = new Accion('el producto es de buena calidad');
+const accion2 = new Accion('desastroso, el producto se rompio');
+const accion3 = new Accion('el producto fue bueno en precio/calidad');
 
 
 /*agregar acciones*/
-    historial.agregarAccion(accion1);
-    historial.agregarAccion(accion2);
-    historial.agregarAccion(accion3);
+historial.agregarAccion(accion1);
+historial.agregarAccion(accion2);
+historial.agregarAccion(accion3);
 
 
 /*ver todas las acciones*/
-    historial.mostrarAcciones();
+historial.mostrarAcciones();
 
 
- /*eliminar la tercera accion*/
-    historial.eliminarAccion(3);   
+/*eliminar la tercera accion*/
+historial.eliminarAccion(3);
 
- /*limpiar el historial*/
-    historial.limpiarHistorial();   
+/*limpiar el historial*/
+historial.limpiarHistorial();   
