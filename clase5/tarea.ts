@@ -34,18 +34,23 @@ class Historial {
         } else {
             this.acciones.forEach(accion => {
                 console.log(accion.mostrarAccion());
+                document.write(accion.mostrarAccion());
             });
         }
     }
 
-    eliminarAccion(indice: number): void {
-        if (indice >= 1 && indice <= this.acciones.length) {
-            this.acciones.splice(indice - 1, 1);
-            console.log(`Accion ${indice} eliminada`);
-        } else {
-            console.log('indice invalido');
+    eliminarAccion(id: number): void {
+        const index = this.acciones.findIndex(accion => accion.id === id);
+        if(index !== -1){
+this.acciones.splice(index, 1);
         }
     }
+
+/*const eliminarAccionPorID(id: number): void {
+const postAccion = this.acciones.find(accion => accion.id === id);
+this.acciones.splice(postAccion, 1);*/
+
+
 
     limpiarHistorial(): void {
         this.acciones = [];
