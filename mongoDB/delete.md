@@ -1,0 +1,1 @@
+eliminamos al elemento que su edad sea equivalente a 54

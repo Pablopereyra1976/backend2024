@@ -1,0 +1,18 @@
+{
+    "name": "clase-12-asincronia-y-manejo-de-errores",
+    "version": "1.0.0",
+    "description": "",
+    "main": "main.js",
+    "type": "module",
+    "scripts": {
+        "start": "node index.js",
+      "dev": "node --watch index.js",
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+  }
+  
+  
+  

@@ -1,0 +1,17 @@
+[
+    {
+        "id": 1,
+        "title": "Cerveza",
+        "price": 100
+    },
+    {
+        "id": 2,
+        "title": "Vino",
+        "price": 200
+    },
+    {
+        "id": 3,
+        "title": "Whisky",
+        "price": 300
+    }
+]
