@@ -4,28 +4,32 @@
     "title": " tv noblex 32 pulgadas",
     "price": 3000,
     "categoria": "TECNOLOGIA",
-    "stock": 2
+    "stock": 2,
+    "active": true
   },
   {
     "id": 2,
     "title": "lavarropas electrolux",
     "price": 5000,
     "categoria": "ELECTRODOMESTICOS",
-    "stock": 5
+    "stock": 5,
+    "active": true
   },
   {
     "id": 3,
     "title": "cocina electrica",    
     "price": 5500,
     "categoria": "ELECTRODOMESTICOS",  
-    "stock": 1
+    "stock": 1,
+    "active": false
   },
   {
     "id": 4,
     "title": "sabanas hombre araña",
     "price": 2000,
     "categoria": "LINEA BLANCA",
-    "stock": 4
+    "stock": 4,
+    "active": true
   }
 ]
 
