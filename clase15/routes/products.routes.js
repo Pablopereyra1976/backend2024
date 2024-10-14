@@ -1,8 +1,4 @@
 
-import express from "express";
-
-
-const productRouter = express.Router();
 
 
 
@@ -300,9 +296,14 @@ productRouter.delete('/:product_id', async (req, res) => {
       return res.status(200).json(response)
   }
 })*/
+import express from "express";
+
+
+const productRouter = express.Router();
+
 
 import { getAllProductsController } from '../controllers/products.controllers.js'
 
-productRouter.get('/products', getAllProductsController);
+productRouter.get('/', getAllProductsController);
 
 export default productRouter
