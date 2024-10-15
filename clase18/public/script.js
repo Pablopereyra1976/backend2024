@@ -1,0 +1,1 @@
+alert('estoy en el lado del servidor')
