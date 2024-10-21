@@ -1,0 +1,21 @@
+{{!-- {
+layout: 'main',
+status: 200,
+ok: true,
+data: {
+title: 'ofertas de la semana',
+products: productos
+},
+helpers: {
+}
+}
+--}}
+
+<h1>{{data.title}}</h1>
+{{#each data.products}}
+<div>
+    <h2>{{this.nombre}}</h2>
+</div>
+{{/each}}
+
+<a href="/product/new">crear producto</a>

@@ -1,0 +1,32 @@
+<h1>cargar productos</h1>
+<form method="post" action="/product/new">
+    <div>
+        <label for="nombre">ingrese Nombre</label>
+        <input placeholder="tv samsung" id="nombre" name="nombre"/>
+    </div>
+    <div>
+        <label for="precio">ingrese Precio</label>
+        <input placeholder="2000" id="precio" name="precio"/>
+    </div>
+    <div>
+        <label for="stock">ingrese Stock</label>
+        <input  id="stock" name="stock"/>
+    </div>
+    <div>
+        <label>seleccione las Categorias de su producto</label>
+        <span>tecnologia</span>
+        <input type="checkbox" name="categoria" value="tecnologia"/>
+        <br>
+        <span>hogar</span>
+        <input type="checkbox" name="categoria" value="hogar"/>
+        <br>
+        <span>office</span>
+        <input type="checkbox" name="categoria" value="office"/>
+        <br>
+    </div>
+    <div>
+        <label for="descripcion">ingrese Descripcion</label>
+        <textarea id="descripcion" name="descripcion"></textarea>
+    </div>
+    <input type="submit" value="Crear producto">
+</form>
