@@ -6,11 +6,17 @@ const MONGO_URL = 'mongodb://localhost:27017/TN_PWA_PRUEBA_MONGOOSE'
 //.connect se utiliza para establecer una conexion con la DB
 //recibe un connection_string o un objeto
 mongoDB.connect(MONGO_URL, {})
-.then(
-    () => {
+.then(async() => {
         console.log('se establecio la conexion con mongoDB')
-        const userCreate = new User({name:"pepe", email:"pepe@gmail.com", password:"pepe123", verificationtoken:" "})
-        userCreate.save()
+        const existingUser = await User.findOne({ email: "pepe@gmail.com" });
+        if (existingUser) {
+            console.log('El usuario ya existe con el email pepe@gmail.com');
+        } else {
+            // Si no existe, crearlo
+            const userCreate = new User({ name: "pepe", email: "ppe@gmail.com", password: "pepe123", verificationtoken: " " });
+            await userCreate.save();
+            console.log('Usuario creado correctamente');
+        }
     }
 )
 .catch((error) =>
