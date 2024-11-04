@@ -1,54 +1,6 @@
-{{!-- {
-layout: 'main',
-status: 200,
-ok: true,
-data: {
-title: 'ofertas de la semana',
-products: productos
-},
-helpers: {
-}
-}
 
-{{#if this.helpers.isRegistered}}
-    <span>Usuario: {{this.data.username}}</span>
-    {{else}}
-    <a href="#">Registrate aqui</a>
-{{/if}}
-<h1>{{this.data.title}}</h1>
-{{!-- 
-Esto esta del lado del cliente CSR
-<script>
-    alert('hola mundo')
-</script> 
---}}
-{{!-- 
-<script src="/script.js"></script> 
---}}
-
+<h1>{{data.title}}</h1>
 {{#each data.products}}
-<div>
-    <h2>{{this.nombre}}</h2>
-</div>
-{{/each}}
-
-<a href="/product/new">crear producto</a>
-
-{
-    layout: 'main',
-    status: 200,
-    ok: true,
-    data: {
-        title: 'Ofertas de la semana',
-        products: productos,
-    },
-    helpers: {
-
-    }
-}
---}}
-<h1>{{this.data.title}}</h1>
-{{#each this.data.products}}
 {{!-- 
 Se crea una especie de ambito donde this pasa a el elemento del array
  --}}
@@ -61,4 +13,7 @@ Se crea una especie de ambito donde this pasa a el elemento del array
     </div>
 {{/each}}
 
-<a href="/product/new">Crear producto</a>
+
+
+
+
