@@ -69,17 +69,15 @@ export const registerController = async (req, res) => {
     const validationToken = jwt.sign(
       {
         email: registerConfig.email.value,
-        
       },
       ENVIROMENT.SECRET_KEY,
       {
-         expiresIn: "1d" 
-        }
-    )
+        expiresIn: "1d",
+      }
+    );
 
-
-    const redirectUrl = `http://localhost:4000/api/auth/verify-email/` + validationToken;
-
+    const redirectUrl =
+      `http://localhost:4000/api/auth/verify-email/` + validationToken;
 
     const result = await trasporterEmail.sendMail({
       subjet: `valida tu email`,
@@ -105,16 +103,16 @@ export const registerController = async (req, res) => {
       .build();
     return res.json(response);
   } catch (error) {
-   if(error.code === 11000){
-    const response = new ResponseBuilder()
-    .setOk(false)
-    .setStatus(400)
-    .setMessage("EMAIL_EXIST")
-    .setData({
-      detail: 'El email ya existe'
-    })
-    .build();
-   return res.json(response);
+    if (error.code === 11000) {
+      const response = new ResponseBuilder()
+        .setOk(false)
+        .setStatus(400)
+        .setMessage("EMAIL_EXIST")
+        .setData({
+          detail: "El email ya existe",
+        })
+        .build();
+      return res.json(response);
     }
   }
   console.log(error);
@@ -128,3 +126,94 @@ console.log(
 );
 //compara la contraseña con la contraseña hasheada
 console.log(ENVIROMENT);
+
+export const verifyEmailController = async (req, res) => {
+  try {
+    const { validation_token } = req.params;
+    console.log("token recibido para validar: ", validation_token);
+    const payload = jwt.verify(validation_token, ENVIROMENT.SECRET_KEY);
+    const email_to_verify = payload.email;
+    const user_to_verify = await User.findOne({ email: email_to_verify });
+
+    user_to_verify.emailVerifield = true;
+    await user_to_verify.save();
+    res.sendStatus(200);
+    //res.redirect('URL_FRONT')
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+}
+
+export const loginController = async (req, res) => {
+  try {
+      const {email, password} = req.body
+//validacionde datos (tarea)
+const user = await User.findOne({email: email})
+if(!user){
+  res.sendStatus(404)
+}
+
+const isCorrectPassword = await bcrypt.compare(password, user.password)
+  if(!isCorrectPassword){
+    //throw o res.status(401).json
+}
+if(!user.emailVerifield){
+    res.status(403).json
+}
+const access_token = jwt.sign({
+  user_id: user._id,
+  email: user.email,
+  name: user.name
+},
+ENVIROMENT.SECRET_KEY,
+{
+  expiresIn: "1d" //esto determina cuanto dura la sesion
+})
+
+const response = new ResponseBuilder()
+.setOk(true)
+.setCode("LOGGED_SUCCESS!")
+.setMessage("LOGGED_SUCCESS!")
+.setStatus(200)
+.setData({
+  access_token: access_token,
+  user_info:{
+    user_id: user._id,
+  email: user.email,
+  name: user.name
+  }
+})
+.build()
+return res.status(200).json(response)
+}
+  
+
+
+
+//recibir del body el email y la password
+//validar estos datos
+//buscar en la DB si existe un usuario con ese email
+//comparar la password hasheada del usuario con la password recibida
+//verificar si su emailVerified es verdadero (sino tirar error de logueo)
+//generar un token de acceso con jwt donde guardemos datos como el user_id, nombre y el email
+//responder exitosamente con el token de acceso
+
+catch (error) {
+  console.log(error)
+  res.sendStatus(500)
+}
+}
+
+/*
+response = {
+ok: true
+status: 200
+data: {
+    token: '',
+    user_info:{
+    name,
+    email,
+    user_id
+    } 
+} */             
