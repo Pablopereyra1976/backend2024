@@ -14,12 +14,13 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    emailVerifield: {
+    emailVerified: {
         type: Boolean,
         default: false
     },
     verificationToken: {
         type: String,
+        default: ''
     },
     fecha_creacion: {
         type: Date,

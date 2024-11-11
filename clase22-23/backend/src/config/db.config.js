@@ -15,7 +15,7 @@ mongoDB.connect(MONGO_URL, {})
             console.log('El usuario ya existe con el email pepe@gmail.com');
         } else {
             // Si no existe, crearlo
-            const userCreate = new User({ name: "pepe", email: "ppe@gmail.com", password: "pepe123", verificationToken: " " });
+            const userCreate = new User({ name: "pepe", email: "pepe@gmail.com", password: "pepe123", verificationToken: " " });
             await userCreate.save();
             console.log('Usuario creado correctamente');
         }

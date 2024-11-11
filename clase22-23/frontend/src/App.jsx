@@ -6,7 +6,7 @@ const App = () => {
 	return (
 		<div>
 			<Routes>
-				<Route path="/" element={<LoginScreem />}/>
+				<Route path="/" element={<RegisterScreem />}/>
 				<Route path="/register" element={<RegisterScreem />}/>
 				<Route path="/login" element={<LoginScreem />}/>
 			</Routes>

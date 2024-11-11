@@ -80,7 +80,7 @@ export const registerController = async (req, res) => {
       `http://localhost:4000/api/auth/verify-email/` + validationToken;
 
     const result = await trasporterEmail.sendMail({
-      subjet: `valida tu email`,
+      subject: `valida tu email`,
       to: registerConfig.email.value,
       html: `<h1>valida tu email</h1> <p>Para validar tu mail da click <a href = "${redirectUrl}">aqui</a></p > `,
     });
@@ -91,7 +91,7 @@ export const registerController = async (req, res) => {
       name: registerConfig.name.value,
       email: registerConfig.email.value,
       password: hashedPassword,
-      verificationToken: " ",
+      verificationToken: validationToken, 
     });
     await userCreated.save();
 
@@ -134,14 +134,17 @@ export const verifyEmailController = async (req, res) => {
     const payload = jwt.verify(validation_token, ENVIROMENT.SECRET_KEY);
     const email_to_verify = payload.email;
     const user_to_verify = await User.findOne({ email: email_to_verify });
-
-    user_to_verify.emailVerifield = true;
+    if (!user_to_verify) {
+      return res.status(404).json({ message: "Usuario no encontrado" });
+    }
+    user_to_verify.emailVerified = true;
     await user_to_verify.save();
-    res.sendStatus(200);
+    res.send('<h1>email verificado exitosamente</h1>');
+    //res.sendStatus(200);
     //res.redirect('URL_FRONT')
   } catch (error) {
     console.log(error);
-    res.sendStatus(500);
+    res.sendStatus(500).json({ message: "Error al verificar el email" });
   }
 }
 
@@ -158,8 +161,8 @@ const isCorrectPassword = await bcrypt.compare(password, user.password)
   if(!isCorrectPassword){
     //throw o res.status(401).json
 }
-if(!user.emailVerifield){
-    res.status(403).json
+if(!user.emailVerified){
+    res.status(403).json({message: "email no verificado"})
 }
 const access_token = jwt.sign({
   user_id: user._id,
@@ -174,7 +177,7 @@ ENVIROMENT.SECRET_KEY,
 const response = new ResponseBuilder()
 .setOk(true)
 .setCode("LOGGED_SUCCESS!")
-.setMessage("LOGGED_SUCCESS!")
+.setMessage("Login exitoso!")
 .setStatus(200)
 .setData({
   access_token: access_token,
